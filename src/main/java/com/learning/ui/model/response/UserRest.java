@@ -11,7 +11,6 @@ public class UserRest {
     private String firstName;
     private String lastName;
     private String email;
-
-    //TODO : make inner class
     private List<AddressesRest> addresses;
-  }
+
+}

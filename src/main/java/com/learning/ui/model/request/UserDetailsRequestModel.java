@@ -13,7 +13,16 @@ public class UserDetailsRequestModel {
     private String lastName;
     private String email;
     private String password;
-
-    //TODO : make address request model as static inner class
     private List<AddressRequestModel> addresses;
+
+    @Getter
+    @Setter
+    static class AddressRequestModel {
+        private String city;
+        private String country;
+        private String streetName;
+        private String postalCode;
+        private String type;
+    }
+
 }

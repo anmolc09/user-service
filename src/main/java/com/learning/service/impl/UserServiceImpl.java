@@ -8,10 +8,10 @@ import com.learning.utils.Utils;
 import com.learning.shared.dto.AddressDTO;
 import com.learning.shared.dto.UserDto;
 import com.learning.ui.model.response.ErrorMessages;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,17 +26,14 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    Utils utils;
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    ModelMapper modelMapper;
+    private final UserRepository userRepository;
+    private final Utils utils;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ModelMapper modelMapper;
 
     @Override
     public UserDto createUser(UserDto user) {
@@ -110,4 +107,5 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
         return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), Collections.emptyList());
     }
+
 }

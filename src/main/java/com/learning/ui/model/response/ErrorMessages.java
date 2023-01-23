@@ -2,7 +2,6 @@ package com.learning.ui.model.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @RequiredArgsConstructor

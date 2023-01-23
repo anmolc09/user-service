@@ -7,10 +7,10 @@ import com.learning.shared.dto.AddressDTO;
 import com.learning.shared.dto.UserDto;
 import com.learning.ui.model.request.UserDetailsRequestModel;
 import com.learning.ui.model.response.*;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
@@ -19,14 +19,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    AddressService addressService;
-    @Autowired
-    ModelMapper modelMapper;
+    private final UserService userService;
+    private final AddressService addressService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/{id}")
     public UserRest getUser(@PathVariable String id) {
@@ -83,7 +81,7 @@ public class UserController {
 
         if (addressesDTO != null && !addressesDTO.isEmpty()) {
             Type listType = new TypeToken<List<AddressesRest>>() {}.getType();
-            returnValue = new ModelMapper().map(addressesDTO, listType);
+            returnValue = modelMapper.map(addressesDTO, listType);
         }
         return returnValue;
     }
@@ -91,6 +89,6 @@ public class UserController {
     @GetMapping("/{userId}/addresses/{addressId}")
     public AddressesRest getUserAddress(@PathVariable String addressId) {
         AddressDTO addressesDto = addressService.getAddress(addressId);
-        return new ModelMapper().map(addressesDto,AddressesRest.class);
+        return modelMapper.map(addressesDto,AddressesRest.class);
     }
 }

@@ -43,7 +43,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query("select user.firstName, user.lastName from UserEntity user where user.userId =:userId ")
     List<Object[]> getUserEntityFullNameById(@Param("userId") String userId);
-
+    
     @Modifying
     @Transactional
     @Query("UPDATE  UserEntity  u set u.emailVerificationStatus =:emailVerificationStatus where u.userId = :userId ")
